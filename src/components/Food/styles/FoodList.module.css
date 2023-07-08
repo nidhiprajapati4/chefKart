@@ -22,16 +22,3 @@
     transform: translateY(0);
   }
 }
-
-.menubutton{
-  height: 0.4in;
-  width: 1in;
-  background-color: black;
-  color:white;
-}
-
-.menu{
-  float: right;
-  margin-top: -0.55in;
-  margin-right: 0.7in;
-}

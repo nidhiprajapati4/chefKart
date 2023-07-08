@@ -1,0 +1,33 @@
+.react-timerange-picker {
+  padding: 10px;
+  font-size: 10px;
+}
+.timeRangePicker{
+  float: right;
+}
+
+.react-date-picker{
+  margin: 20px;
+  float: left;
+  font-size: 12px;
+}
+
+.customCalendar{
+  background-color: white;
+  height: 50px;
+  width: 100%;
+}
+.react-date-picker__wrapper
+{
+  margin-top: -10px;
+}
+
+@media (max-width: 500px) {
+  .customCalendar{
+    height: 110px;
+  }
+}
+
+.ui-datepicker {
+  width: 17em; /*what ever width you want*/
+}

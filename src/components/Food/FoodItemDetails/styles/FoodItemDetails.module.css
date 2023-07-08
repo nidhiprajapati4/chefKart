@@ -1,0 +1,28 @@
+.foodDetails{
+  background-color: white;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.foodDetails .partition{
+  background-color: white;
+  height: 1px;
+  width: 80%;
+  text-align: center;
+  border: solid grey 1px;
+}
+.foodDetailsHeader .image{
+  height: 100px;
+  width: 150px;
+  margin-bottom: 50px;
+}
+.ant-collapse-header i{
+  margin-left: 180px;
+}
+.header img{
+  width: 30px;
+  height: 30px;
+}
+.footer{
+  margin-bottom: 300px;
+}

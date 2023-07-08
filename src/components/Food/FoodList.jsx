@@ -1,72 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 
 import FoodItem from './FoodItem/FoodItem';
 import Card from '../UI/Card';
 import classes from './styles/FoodList.module.css';
-
-const DUMMY_FOOD = [
-  {
-    name: "Masala Mughlai",
-		rating: 4.2,
-		description: "Chicken fried in deep tomato sauce with delicious spices",
-    equipments: ["Refrigerator"," ", "Microwave"],
-	  image: "https://img.freepik.com/free-photo/top-view-delicious-corn-dog_23-2149387975.jpg",
-		id: 1
-  },
-  {
-		name: "Masala Paneer",
-		rating: 4.3,
-		description: "Paneer tossed in gravy",
-		equipments: ["Microwave"],
-		image: "https://img.freepik.com/free-photo/top-view-delicious-corn-dog_23-2149387975.jpg",
-		id: 2
-	},
-  {
-    name: "Masala Mughlai",
-		rating: 4.2,
-		description: "Chicken fried in deep tomato sauce with delicious spices",
-    equipments: ["Refrigerator"," ", "Microwave"],
-	  image: "https://img.freepik.com/free-photo/top-view-delicious-corn-dog_23-2149387975.jpg",
-		id: 1
-  },
-  {
-		name: "Masala Paneer",
-		rating: 4.3,
-		description: "Paneer tossed in gravy",
-		equipments: ["Microwave"],
-		image: "https://img.freepik.com/free-photo/top-view-delicious-corn-dog_23-2149387975.jpg",
-		id: 2
-	}
-];
+import axios from 'axios'
 
 const FoodList = () => {
-  const foodList = DUMMY_FOOD.map((food) => {
-    const { name, rating, description, equipments, image, id } = food;
+  const API_URI_ALL_DATA = 'https://8b648f3c-b624-4ceb-9e7b-8028b7df0ad0.mock.pstmn.io/dishes/v1/';
+  const [allData, setAllData] = useState([])
+  const getAllData = async () => {
+    try {
+      const fetchData = await axios.get(API_URI_ALL_DATA);
+      setAllData(fetchData.data["dishes"]);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
+  useEffect(() => {
+    window.addEventListener('load', getAllData);
+    return () => {
+      window.removeEventListener('load', getAllData)
+    }
+  }, [])
+  
+
+  const foodList = allData.map((food) => {
+    const { id, name, description, image, equipments, rating } = food;
     return (
       <FoodItem
         key={id}
+        id={id}
         name={name}
-        rating={rating}
-        equipments={equipments}
         description={description}
         image={image}
-        id={id}
+        rating={rating}
+        equipments={equipments}
       />
     );
   });
   return (
     <section className={classes.food}>
-      <Card>
-        <div>
-          <h2 style={{paddingLeft:"15px"}}>Recommended &nbsp; 
-          <button type='dropdn'><i class="fa fa-caret-down"></i></button>
-          </h2>
-        </div>
-        <div className={classes.menu}>
-        <button type='text' className={classes.menubutton}>Menu</button>
-        </div>
-        {foodList}
-      </Card>
+      <Card>{foodList}</Card>
     </section>
   );
 };

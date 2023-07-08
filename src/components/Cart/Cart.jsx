@@ -1,8 +1,8 @@
 import React from 'react';
-
 import classes from './styles/Cart.module.css';
-
 import Modal from '../UI/Modal';
+import orderFood from '../../assets/orderFood.png';
+import rightLongArrow from '../../assets/rightLongArrow.png';
 
 const Cart = (props) => {
   const cartItems = (
@@ -24,16 +24,12 @@ const Cart = (props) => {
 
   return (
     <Modal onClose={onHideCart}>
-      {cartItems}
-      <div className={classes.total}>
-        <span>Total Amount</span>
-        <span>39.99</span>
+      <div className={classes.cartBar}>
+        <img className={classes.foodIcon} src={orderFood} />
+        <span>3 food items selected</span>
+        <img className={classes.arrow} src={rightLongArrow} />
       </div>
       <div className={classes.actions}>
-        <button className={classes['button--alt']} onClick={onHideCart}>
-          Close
-        </button>
-        <button className={classes.button}>Order</button>
       </div>
     </Modal>
   );

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 // State
 import CartProvider from './store/CartProvider';
-
+import Main from './Main'
 // Components
 import Header from './components/Layout/Header';
-import Food from './components/Food/Food';
 import Cart from './components/Cart/Cart';
+import Food from './components/Food/Food';
 
 const App = () => {
   const [showCart, setShowCart] = useState(false);
@@ -19,13 +19,16 @@ const App = () => {
     setShowCart(false);
   };
   return (
-    <>
-      {showCart && <Cart onHideCart={hideCartHandler} />}
-      <Header onShowCart={showCartHandler} />
-      <main>
-        <Food />
-      </main>
-    </>
+    <div>
+      <CartProvider>
+        {showCart && <Cart onHideCart={hideCartHandler} />}
+        <Header isDetailsPage={true} />
+        <main>
+          <Main />
+        </main>
+      </CartProvider>
+      <Cart />
+    </div>
   );
 };
 

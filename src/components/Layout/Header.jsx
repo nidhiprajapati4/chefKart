@@ -1,15 +1,20 @@
 import React from 'react';
 import classes from './Header.module.css';
+import navigateBack from '../../assets/navigateBack.PNG';
 
 const Header = (props) => {
-  const { onShowCart } = props;
+  const { isDetailsPage } = props;
+  const navigateToList = () => {
+    window.location.href = '/';
+  }
 
   return (
     <>
       <header className={classes.header}>
-        <h3>Select Dishes</h3>
+        <img src={navigateBack} onClick={navigateToList} />
+        <span>{isDetailsPage ? 'Select Dishes': ''}</span>
       </header>
-      <div className={classes['main-image']}>
+      <div className={classes.headerGap}>
       </div>
     </>
   );

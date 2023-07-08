@@ -9,24 +9,75 @@
 .food h3 {
   margin: 0 0 0.25rem 0;
 }
-.rating{
-  height: -0.5in;
-  width: 0.5in;
-  background-color: green;
-  text-align: center;
-}
+
 .description {
   font-style: italic;
 }
 
-.price {
-  margin-top: 0.25rem;
-  font-weight: bold;
-  color: #ad5502;
-  font-size: 1.25rem;
+.image img{
+  width: 110px;
+  height: 90px;
 }
 
-.dishesimg{
-height: 1.5in;
-width: 2in;
+.ingredients img{
+  width: 20px;
+  height: 30px;
+}
+
+.line1{
+  height: 50px;
+}
+.line1 a{
+  float: left;
+  text-decoration: none;
+  color: black;
+  font-weight: 700;
+  font-size: 13px;
+}
+.line1 .rating{
+  float: right;
+  margin-top: 20px;
+}
+
+.line2{
+  height: 50px;
+  margin-bottom: 30px;
+}
+
+.line2 .equipments{
+  float: left;
+  padding-right: 20px;
+}
+
+.ingredients .navigation{
+  display: block;
+  font-size: 10px;
+  margin-left: 20px;
+}
+.ingredients span{
+  display: inline;
+}
+.navigation img{
+  width: 8px;
+  height: 8px;
+}
+
+.horizontalLine{
+  height: 50px;
+  width: 1px;
+  border: 1px solid grey;
+  margin-right: 20px;
+}
+
+
+#parentDiv {
+  display: flex;
+}
+#child1 {
+  flex: 1;
+  background: lightgreen;
+}
+#Child2 {
+  width: 200px;
+  background: lightblue;
 }
