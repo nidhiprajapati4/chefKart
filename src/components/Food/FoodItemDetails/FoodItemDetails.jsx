@@ -1,51 +1,49 @@
-import {React, useEffect} from 'react';
+import {React, useEffect, useState} from 'react';
 import foodDetailsHeader from '../../../assets/foodDetailsHeader.png';
 import hourIcon from '../../../assets/hourIcon.PNG';
 import downArrow from '../../../assets/downArrow.PNG';
 import Refrigerator from '../../../assets/Refrigerator.PNG';
 import classes from './styles/FoodItemDetails.module.css';
-import Header from '../../Layout/Header';
+import axios from 'axios'
 
 const FoodItemDetails = (props) => {
 
-  const DUMMY_FOOD_DETAILS = [
-  [{
-    "heading":"Vegetables",
-    "name": "Cauliflower",
-    "quantity": '01 Pc'
-  },
-  {
-    "heading":"Vegetables",
-    "name": "Tomato",
-    "quantity": '10 Pc'
-  },
-  {
-    "heading":"Vegetables",
-    "name": "Spinach",
-    "quantity": '1/2 Kg'
-  }],
-  [{
-    "heading":"Spices",
-    "name": "Coriander",
-    "quantity": '100 gram'
-  },
-  {
-    "heading":"Spices",
-    "name": "Mustard Oil",
-    "quantity": '1/2 liters'
-  }]];
-  const foodDetails = DUMMY_FOOD_DETAILS.map((details) => {
-    return (
+  const API_URI_DISH = 'https://8b648f3c-b624-4ceb-9e7b-8028b7df0ad0.mock.pstmn.io/dishes/v1/1';
+  const [dish, setDishData] = useState([])
+  const getDishData = async () => {
+    try {
+      const fetchData = await axios.get(API_URI_DISH);
+      setDishData(fetchData.data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
+  useEffect(() => {
+    window.addEventListener('load', getDishData);
+    return () => {
+      window.removeEventListener('load', getDishData)
+    }
+  }, [])
+  
+  const { rating, description, id } = props;
+  return (
+    <div className={classes.foodDetails}>
+      <div className={classes.foodDetailsHeader}>
+        <span>{dish.name}</span>
+        <span>{rating} *</span>
+        <span>Chicken fried in deep tomato sauce with delicious spices</span>
+        <span><img src={hourIcon} /> {dish.timeToPrepare} </span>
+        <img className={classes.image} src={foodDetailsHeader}/>
+      </div>
+      
       <div>
-            <Header isDetailsPage={false} />
             <div className={classes.header}>
-              <span>
-                {details[0].heading}({details.length})  
-              </span>
+              <span>Vegetables({dish?.ingredients?.vegetables?.length})</span>
               <img src={downArrow} />
               
             </div>
-             {details.map((item, i) => {     
+             {dish?.ingredients?.vegetables?.map((item, i) => {     
                return (          
                <div>    
                 <div className={classes.data}>
@@ -58,37 +56,34 @@ const FoodItemDetails = (props) => {
         )})}
     </div>
 
-    );
-  });
+    <div>
+            <div className={classes.header}>
+              <span>Spices({dish?.ingredients?.spices?.length})</span>
+              <img src={downArrow} />
+              
+            </div>
+             {dish?.ingredients?.spices?.map((item, i) => {     
+               return (          
+               <div>    
+                <div className={classes.data}>
+                <div>
+                    <span className={classes.items}>{item.name}</span>
+                    <span className={classes.items}>{item.quantity}</span>
+                  </div>
+                </div>
+              </div>
+        )})}
+    </div>
 
-  const { name, rating, description, equipments, image, id } = props;
-  return (
-    <div className={classes.foodDetails}>
-      <div className={classes.foodDetailsHeader}>
-        <span>Masala Muglai</span>
-        <span>4.2 *</span>
-        <span>Mughlai Masala is a style of cookery developed in the Indian Subcontinent by the imperial kitchens of the Mughal Empire.</span>
-        <span><img src={hourIcon} /> 1 Hour </span>
-        <img className={classes.image} src={foodDetailsHeader}/>
-      </div>
-
-      <div className={classes.content}>
-        <h2>Ingredients</h2>
-        <span>For 2 people</span>
-        <span className={classes.partition}></span>
-        <div className={classes.category} >
-            {foodDetails}
-        </div>
-      </div>
-
+    <h2>Appliances</h2>
       <div className={classes.footer}>
-        <h2>Appliances</h2>
-        <img className={classes.image} src={Refrigerator}/>
-        <span className={classes.applianceText}></span>
-        <img className={classes.image} src={Refrigerator}/>
-        <span className={classes.applianceText}></span>
-        <img className={classes.image} src={Refrigerator}/>
-        <span className={classes.applianceText}></span>
+        {dish?.ingredients?.appliances?.map((item, i) => {     
+               return (          
+               <div>    
+                <img className={classes.image} src={Refrigerator}/>
+                <span className={classes.applianceText}>{item.name}</span>
+              </div>
+        )})}
       </div>
 
     </div>
@@ -96,14 +91,3 @@ const FoodItemDetails = (props) => {
 };
 
 export default FoodItemDetails;
-
-
-                      
-                      
-                      
-        {/* <Collapse defaultActiveKey={['1']}>
-          <Panel header="antdCollapseHeader 1" key="1">
-            <p>123</p>
-          </Panel>
-        </Collapse> */}
-        

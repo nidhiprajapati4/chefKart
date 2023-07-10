@@ -25,4 +25,11 @@
 }
 .footer{
   margin-bottom: 300px;
+  display: flex;
+}
+.footer h2{
+  display: block;
+}
+.footer span{
+  display: block;
 }
